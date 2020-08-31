@@ -15,6 +15,7 @@ public class InvoiceGeneratorTest {
 		Assert.assertEquals(25, fare, 0.0);
 	}
 
+	//Test case for minimum fare
 	@Test
 	public void givenLessDistanceOrTime_WhenCalculated_ShouldReturnMinimumFare() {
 		InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
