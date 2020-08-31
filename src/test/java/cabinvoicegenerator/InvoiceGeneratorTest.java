@@ -9,7 +9,7 @@ public class InvoiceGeneratorTest {
 	public InvoiceGenerator invoiceGenerator;
 
 	@Before
-	public void initialSetUp() throws Exception {
+	public void initialSetUp()  {
 		invoiceGenerator = new InvoiceGenerator();
 	}
 
