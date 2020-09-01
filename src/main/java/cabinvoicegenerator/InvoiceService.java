@@ -16,10 +16,10 @@ public class InvoiceService {
 		return Math.max(totalFare, MINIMUM_FARE);
 	}
 
-	public InvoiceSummary calculateFare(Ride[] rides) {
+	public InvoiceSummary calculateTotalFare(Ride[] rides) {
 		totalFare = 0;
 		for (Ride ride : rides) {
-			totalFare += this.calculateFare(ride.distance, ride.time);
+			totalFare += ride.cabRide.calculateCostOfCabRide(ride);
 		}
 		return new InvoiceSummary(rides.length, totalFare);
 	}
@@ -29,6 +29,7 @@ public class InvoiceService {
 	}
 
 	public InvoiceSummary getInvoiceSummary(String userId) {
-		return this.calculateFare(rideRepository.getRides(userId));
+		Ride[] rides = rideRepository.getRides(userId);
+		return this.calculateTotalFare(rides);
 	}
 }
