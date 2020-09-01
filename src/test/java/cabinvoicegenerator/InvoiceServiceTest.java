@@ -5,13 +5,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InvoiceServiceTest {
-
-	public InvoiceService invoiceService;
+	
+	InvoiceService invoiceService;
 	String userId = "bts";
+	Ride[] rides;
+	InvoiceSummary expectedInvoiceSummary;
+	RideRepository rideRepository;
 
 	@Before
-	public void initialSetUp() throws Exception {
+	public void initialSetUp() {
 		invoiceService = new InvoiceService();
+		rideRepository = new RideRepository();
+		invoiceService.setRideRepository(rideRepository);
+		rides = new Ride[]
+				  { new Ride(2.0, 5, CabRide.NORMAL),
+				  new Ride(0.1, 1, CabRide.PREMIUM)
+		};
+		expectedInvoiceSummary = new InvoiceSummary(2, 45);
 	}
 
 	//Test case for returning total fare
@@ -35,23 +45,15 @@ public class InvoiceServiceTest {
 	//Test case for number of rides,total fare and average fare for multiple rides
 	@Test
 	public void givenDistanceAndTime_WhenCalculatedForMultipleRides_ShouldReturnInvoiceSummary() {
-		Ride[] rides = { new Ride(2.0, 5, CabRide.NORMAL),
-				  new Ride(0.1, 1, CabRide.PREMIUM)
-		};
 		InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
-		InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 45);
 		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
 
 	//Test case for given user id and ride list
 	@Test
 	public void givenUserIdAndRides_WhenCalculatedForFare_ShouldReturnInvoiceSummary() {
-		Ride[] rides = { new Ride(2.0, 5, CabRide.NORMAL),
-				  new Ride(0.1, 1, CabRide.PREMIUM)
-		};
 		invoiceService.addRides(userId, rides);
 		InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
-		InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 45);
 		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
 }

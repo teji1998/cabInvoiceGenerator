@@ -7,8 +7,8 @@ public class InvoiceService {
 	private RideRepository rideRepository;
 	private double totalFare;
 
-	public InvoiceService() {
-		this.rideRepository = new RideRepository();
+	public void setRideRepository(RideRepository rideRepository){
+		this.rideRepository = rideRepository;
 	}
 
 	public double calculateFare(double distance, int time) {
