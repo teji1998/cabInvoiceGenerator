@@ -9,7 +9,7 @@ public class InvoiceGeneratorTest {
 	public InvoiceGenerator invoiceGenerator;
 
 	@Before
-	public void initialSetUp()  {
+	public void initialSetUp() throws Exception {
 		invoiceGenerator = new InvoiceGenerator();
 	}
 
@@ -31,14 +31,15 @@ public class InvoiceGeneratorTest {
 		Assert.assertEquals(5, fare, 0.0);
 	}
 
-	//Test case to find fare for multiple rides
+	//Test case for number of rides,total fare and average fare for multiple rides
 	@Test
-	public void givenMultipleRides_WhenCalculated_ShouldReturnTotalFare() {
+	public void givenDistanceAndTime_WhenCalculatedForMultipleRides_ShouldReturnInvoiceSummary() {
 		Ride[] rides = { new Ride(2.0, 5),
 				  new Ride(0.1, 1)
 		};
-		double fare = invoiceGenerator.calculateFare(rides);
-		Assert.assertEquals(30, fare, 0.0);
+		InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+		InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30);
+		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
 }
 
