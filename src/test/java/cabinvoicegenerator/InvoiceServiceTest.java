@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InvoiceServiceTest {
-	
+
 	InvoiceService invoiceService;
 	String userId = "bts";
 	Ride[] rides;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cabinvoicegenerator.InvoiceServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-09-01T09:01:39" hostname="HPL5" time="0.009">
+  <properties/>
+  <testcase name="givenLessDistanceOrTime_WhenCalculated_ShouldReturnMinimumFare" classname="cabinvoicegenerator.InvoiceServiceTest" time="0.006"/>
+  <testcase name="givenDistanceAndTime_WhenCalculatedForMultipleRides_ShouldReturnInvoiceSummary" classname="cabinvoicegenerator.InvoiceServiceTest" time="0.0"/>
+  <testcase name="givenDistanceAndTime_WhenCalculated_ShouldReturnTotalFare" classname="cabinvoicegenerator.InvoiceServiceTest" time="0.0"/>
+  <testcase name="givenUserIdAndRides_WhenCalculatedForFare_ShouldReturnInvoiceSummary" classname="cabinvoicegenerator.InvoiceServiceTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
