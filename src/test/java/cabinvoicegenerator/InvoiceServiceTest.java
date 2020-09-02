@@ -17,11 +17,6 @@ public class InvoiceServiceTest {
 		invoiceService = new InvoiceService();
 		rideRepository = new RideRepository();
 		invoiceService.setRideRepository(rideRepository);
-		rides = new Ride[]
-				  { new Ride(2.0, 5, CabRide.NORMAL),
-				  new Ride(0.1, 1, CabRide.PREMIUM)
-		};
-		expectedInvoiceSummary = new InvoiceSummary(2, 45);
 	}
 
 	//Test case for returning total fare
@@ -45,16 +40,53 @@ public class InvoiceServiceTest {
 	//Test case for number of rides,total fare and average fare for multiple rides
 	@Test
 	public void givenDistanceAndTime_WhenCalculatedForMultipleRides_ShouldReturnInvoiceSummary() {
+		rides = new Ride[]
+				  { new Ride(2.0, 5, CabRide.NORMAL),
+							 new Ride(0.1, 1, CabRide.PREMIUM)
+				  };
 		InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
+		expectedInvoiceSummary = new InvoiceSummary(2, 45);
+		Assert.assertEquals(expectedInvoiceSummary, summary);
+	}
+
+	//Test case for number of rides,total fare and average fare for multiple normal rides
+	@Test
+	public void givenDistanceAndTime_WhenCalculatedForMultipleNormalRides_ShouldReturnInvoiceSummary() {
+		rides = new Ride[]
+				  { new Ride(2.0, 5, CabRide.NORMAL),
+							 new Ride(4, 4, CabRide.NORMAL)
+				  };
+		InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
+		expectedInvoiceSummary = new InvoiceSummary(2, 69);
+		Assert.assertEquals(expectedInvoiceSummary, summary);
+	}
+
+	//Test case for number of rides,total fare and average fare for multiple premium rides
+	@Test
+	public void givenDistanceAndTime_WhenCalculatedForMultiplePremiumRides_ShouldReturnInvoiceSummary() {
+		rides = new Ride[]
+				  { new Ride(3, 5, CabRide.PREMIUM),
+							 new Ride(0.1, 1, CabRide.PREMIUM)
+				  };
+		InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
+		expectedInvoiceSummary = new InvoiceSummary(2, 75);
 		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
 
 	//Test case for given user id and ride list
 	@Test
 	public void givenUserIdAndRides_WhenCalculatedForFare_ShouldReturnInvoiceSummary() {
+		rides = new Ride[]
+				  { new Ride(2.0, 5, CabRide.NORMAL),
+							 new Ride(0.1, 1, CabRide.PREMIUM),
+						    new Ride(10, 3, CabRide.NORMAL),
+						    new Ride(1.3, 2, CabRide.PREMIUM)
+				  };
 		invoiceService.addRides(userId, rides);
 		InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
+		expectedInvoiceSummary = new InvoiceSummary(4, 171.5);
 		Assert.assertEquals(expectedInvoiceSummary, summary);
 	}
-}
 
+
+}
