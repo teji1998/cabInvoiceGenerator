@@ -2,6 +2,7 @@ package cabinvoicegenerator;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -20,6 +21,9 @@ public class InvoiceServiceTest {
 		invoiceService.setRideRepository(rideRepository);
 	}
 
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+
 	//Test case for returning total fare
 	@Test
 	public void givenDistanceAndTime_WhenCalculated_ShouldReturnTotalFare() {
@@ -32,7 +36,6 @@ public class InvoiceServiceTest {
 	//Test case when given wrong expected value
 	@Test(expected = AssertionError.class)
 	public void givenDistanceAndTime_WhenTheExpectedValueIsWrong_ShouldFailAndThrowAssertionError() {
-		ExpectedException expectedException = ExpectedException.none();
 		double distance = 2.0;
 		int time = 5;
 		double fare = invoiceService.calculateFare(distance, time);
@@ -87,7 +90,6 @@ public class InvoiceServiceTest {
 	//Test case for number of rides,total fare and average fare for null rides
 	@Test(expected = NullPointerException.class)
 	public void givenDistanceAndTime_WhenGivenNullRides_ShouldThrowNullPointerException() {
-		ExpectedException expectedException = ExpectedException.none();
 		rides = new Ride[]
 				  { new Ride(3, 5, CabRide.PREMIUM),
 							 new Ride(0.1, 1, CabRide.PREMIUM)
@@ -115,7 +117,6 @@ public class InvoiceServiceTest {
 	//Test case for null rides and null userId 
 	@Test(expected = NullPointerException.class)
 	public void givenUserIdAndRides_WhenGivenNullRideAndUserId_ShouldThrowNullPointerException() {
-		ExpectedException expectedException = ExpectedException.none();
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
 							 new Ride(0.1, 1, CabRide.PREMIUM),
@@ -131,7 +132,6 @@ public class InvoiceServiceTest {
 	//Test case for wrong summary value
 	@Test(expected = AssertionError.class)
 	public void givenUserIdAndRides_WhenGivenWrongInvoiceSummary_ShouldThrowAssertionError() {
-		ExpectedException expectedException =ExpectedException.none();
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
 							 new Ride(0.1, 1, CabRide.PREMIUM),
@@ -147,7 +147,6 @@ public class InvoiceServiceTest {
 	//Test case for null userId
 	@Test(expected = NullPointerException.class)
 	public void givenUserIdAndRides_WhenGivenNullUserId_ShouldThrowNullPointerException() {
-		ExpectedException expectedException =ExpectedException.none();
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
 							 new Ride(0.1, 1, CabRide.PREMIUM),
@@ -163,7 +162,6 @@ public class InvoiceServiceTest {
 	//Test case for wrong expected value
 	@Test(expected = AssertionError.class)
 	public void givenUserIdAndRides_WhenGivenWrongExpectedValue_ShouldThrowAssertionError() {
-		ExpectedException expectedException =ExpectedException.none();
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
 							 new Ride(0.1, 1, CabRide.PREMIUM),
