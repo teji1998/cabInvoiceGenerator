@@ -39,12 +39,12 @@ public class InvoiceServiceTest {
 	}
 
 	//Test case when given wrong expected value
-	@Test(expected = AssertionError.class)
+	@Test
 	public void givenDistanceAndTime_WhenTheExpectedValueIsWrong_ShouldFailAndThrowAssertionError() {
 		double distance = 2.0;
 		int time = 5;
 		double fare = invoiceService.calculateFare(distance, time);
-		Assert.assertEquals(50, fare, 0.0);
+		Assert.assertNotEquals(50, fare, 0.0);
 	}
 
 	//Test case for minimum fare
@@ -61,7 +61,7 @@ public class InvoiceServiceTest {
 	public void givenDistanceAndTime_WhenCalculatedForMultipleRides_ShouldReturnInvoiceSummary() {
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
-							 new Ride(0.1, 1, CabRide.PREMIUM)
+						    new Ride(0.1, 1, CabRide.PREMIUM)
 				  };
 		InvoiceSummary summary = invoiceService.calculateTotalFare(rides);
 		expectedInvoiceSummary = new InvoiceSummary(2, 45);
@@ -135,7 +135,7 @@ public class InvoiceServiceTest {
 	}
 
 	//Test case for wrong summary value
-	@Test(expected = AssertionError.class)
+	@Test
 	public void givenUserIdAndRides_WhenGivenWrongInvoiceSummary_ShouldThrowAssertionError() {
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
@@ -146,7 +146,7 @@ public class InvoiceServiceTest {
 		invoiceService.addRides(userId, rides);
 		InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
 		expectedInvoiceSummary = new InvoiceSummary(4, 171.5);
-		Assert.assertEquals(expectedInvoiceSummary, expectedException);
+		Assert.assertNotEquals(expectedInvoiceSummary, expectedException);
 	}
 
 	//Test case for null userId
@@ -165,7 +165,7 @@ public class InvoiceServiceTest {
 	}
 
 	//Test case for wrong expected value
-	@Test(expected = AssertionError.class)
+	@Test
 	public void givenUserIdAndRides_WhenGivenWrongExpectedValue_ShouldThrowAssertionError() {
 		rides = new Ride[]
 				  { new Ride(2.0, 5, CabRide.NORMAL),
@@ -176,6 +176,6 @@ public class InvoiceServiceTest {
 		invoiceService.addRides(userId, rides);
 		InvoiceSummary summary = invoiceService.getInvoiceSummary(userId);
 		expectedInvoiceSummary = new InvoiceSummary(5, 171.5);
-		Assert.assertEquals(expectedInvoiceSummary, expectedException);
+		Assert.assertNotEquals(expectedInvoiceSummary, expectedException);
 	}
 }
